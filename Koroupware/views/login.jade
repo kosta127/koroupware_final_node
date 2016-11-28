@@ -1,0 +1,14 @@
+doctype html
+html
+	head
+		meta(charset='UTF-8')
+		title Lobby
+		script(type='text/javascript', src='http://code.jquery.com/jquery-1.9.1.js')
+		script(type='text/javascript', src='/socket.io/socket.io.js')
+		<!-- script(type='text/javascript', src='/javascript/login.js') -->
+	body
+		form(action='/imageroom/lobby', method='get')
+			span emp_no:
+			input(type='text', name='emp_no')
+			input(type='submit', value='button')
+

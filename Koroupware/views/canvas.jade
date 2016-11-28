@@ -1,0 +1,56 @@
+doctype html
+html
+	head
+		meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+		title test 제발
+		script(type='text/javascript', src='http://code.jquery.com/jquery-1.12.4.js')
+		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js')
+		script(type='text/javascript', src='/socket.io/socket.io.js')
+		script(type='text/javascript', src='/javascript/canvas.js')
+		link(rel='stylesheet', href='/stylesheets/canvas.css')
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css')
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css')
+	body
+		#container.container
+			#hiddenDiv.hidden
+				span#emp_no #{emp_no}
+				span#image_room_no #{image_room_no}
+			#imageDiv.col-md-8
+				canvas#canvas.canvas-canvas.col-md-10(width='600px', height='600px')
+				.col-md-2.canvas-menu
+					.row
+						span 색상:
+						select#colorSelecter
+							option(value='#000000') 검은색
+							option(value='#FF0000') 빨강색
+							option(value='#00FF00') 초록색
+							option(value='#0000FF') 파랑색
+							option(value='#FFFF00') 노란색
+							option(value='#00FFFF') 하늘색
+							option(value='#FF00FF') 핑크색
+					.row
+						input#penButton(type='button', value='펜')
+						input#eraserButton(type='button', value='지우개')
+					.row
+						// 슬라이더 두께 선택
+						span 펜굵기
+						input#widthSlider(type='range', min='0', max='20', value='5')
+					.row
+						// 슬라이더 투명도 선택
+						span 투명도
+						input#opacitySlider(type='range', min='0', max='100', value='100')
+					.row
+						// 화면 캡쳐
+						span 화면 캡쳐 설명:
+						input#captureExplain(type='text', size='15')
+					.row
+						input#captureButton(type='button', value='캡처')
+						input#clearButton(type='button', value='전부 지우기')
+					.row
+						ul#caputreList
+				.col-md-12.chat-people
+			#chatDiv.col-md-4
+				.row.chat-area
+				.row.chat-write
+					input#chatText.col-md-9.chat-write(type='text', name='chatWrite')
+					button#chatEnterButton.col-md-3.chat-submit.btn.btn-primary 전송
