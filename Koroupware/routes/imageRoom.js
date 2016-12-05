@@ -13,10 +13,12 @@ exports.canvas = function(req, res){
 	});
 }
 
+
+/*
 exports.login = function(req, res){
 	res.render('login');
 }
-/*
+
 exports.test = function(req, res){
 	res.render('test', {
 		"emp_no": req.session.emp_no,

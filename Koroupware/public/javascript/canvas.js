@@ -10,15 +10,14 @@ function Point(event, target){
 }
 
 $(function(){
+	//변수 선언
 	var container = document.getElementById('container');
 	var imageDiv = document.getElementById('imageDiv');
-	//Canvas 객체 추출
 	var canvas = document.getElementById('canvas');
 	var context = canvas.getContext('2d');
 	var $captureList = $('#caputreList');
 	var $hiddenDiv = $('#hiddenDiv');
 
-	//변수 선언
 	//화면 크기
 	pageDefaultLeft = parseInt($(container).css('margin-left')) 
 						+ parseInt($(container).css('padding-left'))
@@ -36,7 +35,7 @@ $(function(){
 	//이미지 캡쳐 정보들 가져오기
 	$.ajax({
 		type: 'get',
-		url: 'http://192.168.0.164:8081/canvas/imageCapture',
+		url: 'http://localhost:8081/canvas/imageCapture',
 		data: {
 			image_room_no: $hiddenDiv.find('#image_room_no').text(),
 			emp_no: $hiddenDiv.find('#emp_no').text()
@@ -51,7 +50,7 @@ $(function(){
 	//채팅 정보들 가져오기
 	$.ajax({
 		type: 'get',
-		url: 'http://192.168.0.164:8081/chat/',
+		url: 'http://localhost:8081/chat/',
 		data: {
 			image_room_no: $hiddenDiv.find('#image_room_no').text()
 		},
@@ -62,6 +61,7 @@ $(function(){
 		}
 	});
 	
+	//마우스 클릭 이벤트
 	function canvasMouseClickEvnet(event){
 		isDown = true;
 		oldPoint = new Point(event, this);
@@ -71,10 +71,7 @@ $(function(){
 	$(canvas).on('mousedown', canvasMouseClickEvnet);
 	
 	$(canvas).on('mouseup', function(){
-		socket.emit('saveImage',{
-			image_capture_contents: canvas.toDataURL(),
-			image_room_no: $hiddenDiv.find('#image_room_no').text()
-		});
+		socket.emit('saveImage', canvas.toDataURL());
 		
 		isDown = false;
 	});
@@ -161,17 +158,14 @@ $(function(){
 	});
 	*/
 	
-	
 	//캡처 내용 추가
 	function appendCapture(data){
-		var aTag = $('<a>X</a>');
-		
-		var liTag = $('<li></li>')
-					.attr('data-img', data.image_capture_contents)
-					.attr('data-index', data.image_capture_no)
-					.text(data.image_capture_explain)
-					.append(aTag)
-					.appendTo($captureList);
+		$('<li></li>')
+		.attr('data-img', data.image_capture_contents)
+		.attr('data-index', data.image_capture_no)
+		.text(data.image_capture_explain)
+		.append($('<a>X</a>'))
+		.appendTo($captureList);
 	}
 	
 	//날짜 형식 변환
@@ -216,12 +210,12 @@ $(function(){
 		var $captureExplain = $('#captureExplain');
 		
 		$.ajax({
-			url: 'http://192.168.0.164:8081/canvas/getImageCaptureNo',
+			url: 'http://localhost:8081/canvas/getImageCaptureNo',
 			type: 'get',
 			success: function(image_capture_no){
 				$.ajax({
 					type: 'post',
-					url: 'http://192.168.0.164:8081/canvas/imageCapture',
+					url: 'http://localhost:8081/canvas/imageCapture',
 					data: {
 						image_capture_contents: canvas.toDataURL(),
 						image_capture_explain: $captureExplain.val(),
@@ -229,8 +223,6 @@ $(function(){
 						emp_no: $hiddenDiv.find('#emp_no').text()
 					},
 					success: function(message){
-						alert(message);
-						
 						appendCapture({
 							image_capture_contents: canvas.toDataURL(),
 							image_capture_explain: $captureExplain.val(),
@@ -252,12 +244,11 @@ $(function(){
 	//캡쳐 정보 삭제하기
 	$captureList.on('click', 'a', function(event){
 		event.stopPropagation();
-		
 		var that = $(this);
 		
 		$.ajax({
 			type : 'post',
-			url : 'http://192.168.0.164:8081/canvas/imageCaptureDelete',
+			url : 'http://localhost:8081/canvas/imageCaptureDelete',
 			data: {
 				image_capture_no : that.parent().attr('data-index')
 			},
@@ -279,11 +270,13 @@ $(function(){
 	//소켓 이벤트 연결
 	var socket = io.connect();
 	
+	//접속
 	socket.emit('join',{
 		image_room_no: $hiddenDiv.find('#image_room_no').text(),
 		emp_no: $hiddenDiv.find('#emp_no').text()
 	});
 	
+	//그림그리기
 	socket.on('line', function(data){
 		context.lineWidth = data.width;
 		context.strokeStyle = data.color;
@@ -294,10 +287,12 @@ $(function(){
 		context.stroke();
 	});
 	
+	//지우개
 	socket.on('clean', function(){
 		context.clearRect(0,0,canvas.width, canvas.height);
 	});
 	
+	//이미지 불러오기
 	socket.on('drawImage', function(data){
 		var image = new Image();
 		
@@ -306,28 +301,31 @@ $(function(){
 		context.drawImage(image, 0, 0);
 	});
 	
+	//이미지 받아오는 요청
 	socket.emit('loadImage');
 	
+	//접속자 리스트
 	socket.on('joinList', function(joinList){
 		$('.chat-people').html('');
 		
 		$.each(joinList, function(index, item){
 			$.ajax({
 				type: 'get',
-				url: 'http://192.168.0.164:8081/imageRoom/getEmp',
+				url: 'http://localhost:8081/imageRoom/getEmp',
 				data: {
 					emp_no: item
 				},
 				success: function(data){
 					$('<span></span>')
 					.attr('data-index', data.emp_no)
-					.text(data.dept_name + ' ' + data.emp_name + data.office_name)
+					.text(data.dept_name + ' ' + data.emp_name)
 					.appendTo('.chat-people');
 				}
 			});
 		});
 	});
 	
+	//권한 설정
 	$('.chat-people').on('click', 'span', function(){
 		if($(this).hasClass('drawDisable')){
 			socket.emit('removeDrawDisable', $(this).attr('data-index'));
@@ -336,6 +334,7 @@ $(function(){
 		}
 	});
 	
+	//나인지 확인
 	function isMyEmpNo(emp_no){
 		if($hiddenDiv.find('#emp_no').text() == emp_no){
 			return true;
@@ -344,6 +343,7 @@ $(function(){
 		return false;
 	}
 	
+	//그리는 권한 삭제
 	socket.on('addDrawDisable', function(data){
 		if(isMyEmpNo(data)){
 			$(canvas).off('mousedown');
@@ -352,6 +352,7 @@ $(function(){
 		$('.chat-people').find('span[data-index='+data+']').addClass('drawDisable');
 	});
 	
+	//그리는 권한 추가
 	socket.on('removeDrawDisable', function(data){
 		if(isMyEmpNo(data)){
 			$(canvas).on('mousedown', canvasMouseClickEvnet);
@@ -360,11 +361,10 @@ $(function(){
 		$('.chat-people').find('span[data-index='+data+']').removeClass('drawDisable');
 	});
 
-	
 	//채팅
 	$('#chatEnterButton').on('click', function(event){
 		$.ajax({
-			url: 'http://192.168.0.164:8081/chat/getImageRoomHisNo',
+			url: 'http://localhost:8081/chat/getImageRoomHisNo',
 			type: 'get',
 			success: function(imageRoomHisNo){
 				var chatData = {
@@ -376,12 +376,10 @@ $(function(){
 				};
 				
 				$.ajax({
-					url: 'http://192.168.0.164:8081/chat/',
+					url: 'http://localhost:8081/chat/',
 					type: 'post',
 					data: chatData,
 					success: function(data){
-						alert(data);
-						
 						socket.emit('chat', chatData);
 						
 						$('#chatText').val('');
@@ -391,6 +389,7 @@ $(function(){
 		});
 	});
 	
+	//채팅 내용 추가
 	socket.on('chat', function(data){
 		appendChat(data);
 	});

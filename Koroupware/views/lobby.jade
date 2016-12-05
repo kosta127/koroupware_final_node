@@ -6,13 +6,15 @@ html
 		script(type='text/javascript', src='http://code.jquery.com/jquery-1.9.1.js')
 		script(type='text/javascript', src='/socket.io/socket.io.js')
 		script(type='text/javascript', src='/javascript/lobby.js')
+		link(rel='stylesheet', href='/stylesheets/lobby.css')
 	body
 		#hiddenDiv.hidden
 			span#emp_no #{emp_no}
-		h1 Canvas
-		p socket.io로 서버 연결
-		span Room: 
+		h1 그림회의
+		p 방생성
+		span Room:
 		input#room
 		button#createButton CREATE ROOM
 		hr
+		p 방목록
 		#container

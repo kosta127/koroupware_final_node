@@ -5,7 +5,7 @@ $(document).ready(function(){
 	//emp 정보 셋팅
 	$.ajax({
 		type: 'get',
-		url: 'http://192.168.0.164:8081/imageRoom/getEmp',
+		url: 'http://localhost:8081/imageRoom/getEmp',
 		data: {
 			emp_no: $hiddenDiv.find('#emp_no').text()
 		},
@@ -17,13 +17,10 @@ $(document).ready(function(){
 	//맨 처음 페이지 접속시 db에 있는 방에 대한 정보 ajax 처리
 	$.ajax({
 		type: 'get',
-		url: 'http://192.168.0.164:8081/imageRoom/imageRoomLobby',
+		url: 'http://localhost:8081/imageRoom/imageRoomLobby',
 		success: function(data){
 			$.each(data, function(index, item){
-				$('<button></button>').attr({
-					'data-room': item.image_room_no
-				}).text('방이름: ' + item.image_room_name)
-				.appendTo('#container');
+				createRoom(item);
 			});
 		}
 	});
@@ -31,12 +28,36 @@ $(document).ready(function(){
 	//Socket 처리
 	var socket = io.connect();
 	
-	socket.on('create_room', function(data){
-		//문서 객체를 추가
+	function createRoom(data){
+		var divTag = $('<div></div>')
+						.attr('data-index', data.image_room_no)
+						.addClass('roomDiv');
+		
+		$('<span></span>')
+		.text('방이름 : ' + data.image_room_name)
+		.addClass('roomName')
+		.appendTo(divTag)
+		.after('</br>');
+		
+		$('<span></span>')
+		.text('방장 : ' + data.dept_name + ' ' + data.emp_name + data.office_name)
+		.addClass('creater')
+		.appendTo(divTag)
+		.after('</br>');
+
 		$('<button></button>').attr({
 			'data-room': data.image_room_no
-		}).text('방이름: ' + data.image_room_name)
+		}).text('입장')
+		.appendTo(divTag);
+		
+		divTag
+		.append($('<a>X</a>'))
 		.appendTo('#container');
+	}
+	
+	socket.on('create_room', function(data){
+		//문서 객체를 추가
+		createRoom(data);
 	});
 	
 	//이벤트 연결
@@ -46,6 +67,26 @@ $(document).ready(function(){
 		
 		//방의 pk를 가지고 페이지 이동
 		location = 'canvas?image_room_no=' + room;
+	});
+	
+	$('#container').on('click', 'a', function(event){
+		event.stopPropagation();
+		var that = $(this);
+		
+		$.ajax({
+			type : 'post',
+			url : 'http://localhost:8081/imageRoom/imageRoomDelete',
+			data: {
+				image_room_no : that.parent().attr('data-index')
+			},
+			dataType : 'text',
+			success : function(result) {
+				if (result == 'SUCCESS') {
+					alert('삭제되었습니다.');
+					that.parent().remove();
+				}
+			}
+		});
 	});
 	
 	$('#createButton').click(function(){
@@ -59,16 +100,21 @@ $(document).ready(function(){
 				//ajax로 spring에 정보 보내기
 				$.ajax({
 					type: 'post',
-					url: 'http://192.168.0.164:8081/imageRoom/imageRoomLobby',
+					url: 'http://localhost:8081/imageRoom/imageRoomLobby',
 					data: {
 						image_room_name: image_room_name,
 						emp_no: emp.emp_no
 					},
 					success: function(message){
+						alert(emp.office_name);
 						//Spring과 통신되어 db에 저장이 되면 소켓 이벤트 발생
 						socket.emit('create_room', {
 							image_room_name: image_room_name,
-							image_room_no: image_room_no
+							image_room_no: image_room_no,
+							emp_name: emp.emp_name,
+							dept_name: emp.dept_name,
+							position_name: emp.position_name,
+							office_name: emp.office_name
 						});
 					}
 				});

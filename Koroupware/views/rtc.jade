@@ -1,0 +1,24 @@
+doctype html
+html
+	head
+		title 화상회의;
+		meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+		link(rel='stylesheet', type='text/css', href='/easyrtc/easyrtc.css')
+		meta(name='viewport', content='width=device-width, minimum-scale=1, maximum-scale=1')
+		script(src='/socket.io/socket.io.js')
+		script(type='text/javascript', src='/easyrtc/easyrtc.js')
+		script(type='text/javascript', src='/javascript/mylogic.js')
+	body(onload='appInit()')
+		#fullpage.boxCommon(style='background-image:url(images/irongrip.png)')
+			video#box0.transit.boxCommon.thumbCommon(muted='muted', volume='0')
+			video#box1.transit.boxCommon.thumbCommon(style='visibility:hidden')
+			video#box2.transit.boxCommon.thumbCommon(style='visibility:hidden')
+			video#box3.transit.boxCommon.thumbCommon(style='visibility:hidden')
+			#textentryBox(onsubmit='sendText()', style='display:none')
+				input#textentryField.transit.boxcommon(type='text')
+				br
+				button#textentrySubmit(style='float:right;margin-right:1em', onclick='sendText()') Send
+				button#textentryCancel(style='float:left;margin-left:1em', onclick='cancelText()') Cancel
+			input#killButton.transit.boxCommon(type='hidden', onclick='killActiveBox()', style='display:none;z-index:3', alt='close button')
+			input#muteButton.transit.boxCommon(type='hidden', onclick='muteActiveBox()', style='display:none;z-index:3', alt='mute button')
+			input#textEntryButton.transit.boxCommon(type='hidden', onclick='showTextEntry()', style='z-index:3;display:none', value='채팅', alt='text button')
