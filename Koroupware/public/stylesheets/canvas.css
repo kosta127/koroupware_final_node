@@ -6,42 +6,100 @@
 
 
  */
-
-*{
-	padding: 0px;
-	margin: 0px;
-}
-
-canvas{
+ @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+ 
+canvas {
 	width: 800px;
 	height: 600px;
-	cursor:crosshair;
-	boarder:black 10px solid;
+	cursor: crosshair;
+	boarder: black 10px solid;
+	border-radius: 15px;
+	box-shadow: 1px 1px 1px 1px lightgray;
 }
 
-.chat-area{
+.chat-area {
 	height: 600px;
 }
 
-.chat-write, .chat-people, .btn-primary{
+.chat-write, .chat-people, .btn-default {
 	height: 60px;
 }
 
-.drawDisable{
-	background:red;
+.drawDisable {
+	background: #ff9f9f;
+	color: white;
 }
 
-.myChat{
+.myChat {
 	text-align: right;
 }
-
-.chatContents{
+.chatEmp{
+	font-family: 'Noto Sans KR', sans-serif; 
+	margin-bottom: 3px;
+}
+.chatContents {
+	font-family: 'Noto Sans KR', sans-serif; 
+	margin : 5px 0px 5px 0px;
 	width: 100px;
-	
-	word-break:break-all; 
-	word-wrap:break-word;
+	word-break: break-all;
+	word-wrap: break-word;
+	border-radius: 5px;
+	padding: 3px;
+	margin-right: 7px;
+	background-color: #f3e894;
+}
+.chatRegdate{
+	font-size: 8px;
+}
+.chat-area {
+	background-color: #cdedf1;
+	overflow: scroll;
+	boarder: black 10px solid;
+	border-radius: 15px;
+	box-shadow: 1px 1px 1px 1px lightgray;
 }
 
-.chat-area{
-	overflow: scroll;
+.canvas-menu{
+}
+
+.canvas-menu>* {
+	margin: 10px 0px 10px 10px;
+	padding-left: 5px;
+}
+
+.penRow {
+	text-align: center;
+}
+
+.glyphicon {
+	font-size: 30px;
+	margin: 0px 10px;
+}
+
+.explainSpan {
+	font-size: 20px;
+}
+
+.chat-people{
+	padding: 10px;
+	margin: 3px;
+	boarder: black 10px solid;
+	box-shadow: 0.3px 0.3px 0.3px 0.3px lightgray;
+}
+.chatRegdate{
+	font-family: 'Noto Sans KR', sans-serif; 
+	padding: 7px;
+	margin: 5px 0px 5px 0px;
+} 
+.chat-people > span{
+	border-radius: 5px;
+	border: 1px solid black;
+	padding: 3px;
+	font-weight: bold;
+	margin: 5px;
+}
+
+.chat-area > div{
+	margin: 10px 0px 10px 0px; 
+	padding: 7px;
 }

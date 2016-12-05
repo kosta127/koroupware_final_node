@@ -1,23 +1,41 @@
-.hidden{
-	display:none;
+.hidden {
+	display: none;
 }
 
-*{
+* {
 	padding: 0px;
 	margin: 0px;
 }
 
-h1{
+h1 {
 	margin: 15px;
 }
 
-p{
-	font-size:30px;
+p {
+	font-size: 30px;
 	margin: 10px;
 }
 
-.roomDiv{
+.roomDiv {
 	display: inline-block;
 	padding: 5px;
 	margin: 5px;
+	boarder: black 10px solid;
+	border-radius: 8px;
+	box-shadow: 1px 1px 1px 1px lightgray;
+}
+
+.removeTag{
+	padding: 10px 30px;
+}
+
+
+
+.form-inline > *{
+	margin: 0px 5px;
+	padding: 0px 5px;
+}
+
+.control-label{
+	font-size: 20px;
 }

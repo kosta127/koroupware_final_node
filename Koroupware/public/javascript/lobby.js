@@ -48,10 +48,15 @@ $(document).ready(function(){
 		$('<button></button>').attr({
 			'data-room': data.image_room_no
 		}).text('입장')
+		.addClass('btn')
+		.addClass('btn-default')
 		.appendTo(divTag);
 		
+		var aTag = $('<a>방삭제</a>')
+					.addClass('removeTag');
+		
 		divTag
-		.append($('<a>X</a>'))
+		.append(aTag)
 		.appendTo('#container');
 	}
 	
@@ -103,10 +108,10 @@ $(document).ready(function(){
 					url: 'http://localhost:8081/imageRoom/imageRoomLobby',
 					data: {
 						image_room_name: image_room_name,
-						emp_no: emp.emp_no
-					},
+						emp_no: emp.emp_no,
+						image_room_no: image_room_no
+					},	
 					success: function(message){
-						alert(emp.office_name);
 						//Spring과 통신되어 db에 저장이 되면 소켓 이벤트 발생
 						socket.emit('create_room', {
 							image_room_name: image_room_name,

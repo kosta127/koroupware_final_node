@@ -1,20 +1,59 @@
-doctype html
-html
+block content
 	head
 		meta(charset='UTF-8')
 		title Lobby
-		script(type='text/javascript', src='http://code.jquery.com/jquery-1.9.1.js')
+		script(type='text/javascript', src='http://code.jquery.com/jquery-1.12.4.js')
+		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js')
 		script(type='text/javascript', src='/socket.io/socket.io.js')
 		script(type='text/javascript', src='/javascript/lobby.js')
 		link(rel='stylesheet', href='/stylesheets/lobby.css')
+		link(rel='stylesheet', href='/stylesheets/header.css')
+		script(type='text/javascript', src='/javascript/header.js')
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css')
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css')
 	body
-		#hiddenDiv.hidden
-			span#emp_no #{emp_no}
-		h1 그림회의
-		p 방생성
-		span Room:
-		input#room
-		button#createButton CREATE ROOM
-		hr
-		p 방목록
-		#container
+		header.header#header
+			.col-md-1.main-font
+				a.hidden-xs.hidden-sm(href='http://localhost:8081/main')
+					span.main-font1 K
+					span.main-font2 o
+					span.main-font3 r
+					span.main-font4 o
+					span.main-font5 u
+					span.main-font6 p
+					span.main-font7 w
+					span.main-font8 a
+					span.main-font9 r
+					span.main-font10 e
+			.col-md-1
+			.col-md-6
+				.col-md-12.header-search-div
+					.col-md-4.header-search
+						span.header-search-span 회원/부서 검색
+					.col-md-6
+						input.form-control.search-text(type='text')
+					.col-md-2
+						button.btn.btn-block.search-button
+							i.glyphicon.glyphicon-search
+			.col-md-4
+				.col-md-3
+				.col-md-3.emp_img
+					span.header-emp-img.block 
+				.col-md-3.emp_name
+					a(href='/empDataUpdate?emp_no=${login.emp_no }')
+						span.header-emp-name.block 
+				.col-md-3.header-button
+					button.btn.btn-block.logout-button.btn-lg(onclick='logout()')
+						i.glyphicon.glyphicon-off
+		#container.container
+			#hiddenDiv.hidden
+				span#emp_no #{emp_no}
+			h1 그림회의
+			p 방생성
+			div.form-group.form-group-md.form-inline
+				label.control-label(for='room') 방제목 : 
+				input#room.form-control(type='text')
+				button#createButton.btn.btn-default CREATE ROOM
+			hr
+			p 방목록
+			#container

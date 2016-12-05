@@ -1,7 +1,12 @@
 doctype html
 html
 	head
-		title= title
-		link(rel='stylesheet', href='/stylesheets/style.css')
+		meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+		script(type='text/javascript', src='http://code.jquery.com/jquery-1.12.4.js')
+		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js')
+		script(type='text/javascript', src='/socket.io/socket.io.js')
+		script(type='text/javascript', src='/javascript/header.js')
+		link(rel='stylesheet', href='/stylesheets/header.css')
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css')
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css')
 	body
-		block content

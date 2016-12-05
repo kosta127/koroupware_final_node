@@ -1,0 +1,250 @@
+.main-font {
+	margin-top: 5px;
+	text-align: center;
+}
+
+.main-font1 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #0080c0;
+	font-size: 35px;
+}
+
+.main-font2 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #E64A19;
+	font-size: 30px;
+}
+
+.main-font3 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #43A047;
+	font-size: 30px;
+}
+
+.main-font4 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #F9A825;
+	font-size: 30px;
+}
+
+.main-font5 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #E64A19;
+	font-size: 30px;
+}
+
+.main-font6 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #0080c0;
+	font-size: 30px;
+}
+
+.main-font7 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #43A047;
+	font-size: 30px;
+}
+
+.main-font8 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #F9A825;
+	font-size: 30px;
+}
+
+.main-font9 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #0080c0;
+	font-size: 30px;
+}
+
+.main-font10 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #E64A19;
+	font-size: 30px;
+}
+
+.main-font1-1 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #0080c0;
+	font-size: 45px;
+}
+
+.main-font2-1 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #E64A19;
+	font-size: 40px;
+}
+
+.main-font3-1 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #43A047;
+	font-size: 40px;
+}
+
+.main-font4-1 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #F9A825;
+	font-size: 40px;
+}
+
+.main-font5-1 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #E64A19;
+	font-size: 40px;
+}
+
+.main-font6-1 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #0080c0;
+	font-size: 40px;
+}
+
+.main-font7-1 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #43A047;
+	font-size: 40px;
+}
+
+.main-font8-1 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #F9A825;
+	font-size: 40px;
+}
+
+.main-font9-1 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #0080c0;
+	font-size: 40px;
+}
+
+.main-font10-1 {
+	font-family: 'Product Sans', Arial, sans-serif;
+	color: #E64A19;
+	font-size: 40px;
+}
+
+.header-button {
+	margin-top: 15px;
+	margin-bottom: 10px;
+}
+
+.emp_name {
+	font-family: 'Noto Sans KR', sans-serif;
+	margin-top: 20px;
+	text-align: center;
+}
+
+.emp_name a:hover {
+	text-decoration: none;
+}
+
+.emp_img {
+	font-family: 'Noto Sans KR', sans-serif;
+	margin-top: 20px;
+	text-align: center;
+}
+
+.main-font a:hover {
+	text-decoration: none;
+}
+
+.header-search-span {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 15px;
+}
+
+.header-search-div {
+	margin-top: 15px;
+}
+
+.header-search {
+	text-align: right;
+	margin-top: 5px;
+}
+
+.search-button {
+	margin-top: 3px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.logout-button {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.update-button {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+.nav-sidebar .sidebar-blue a { 
+    cursor: default;
+    background-color: #fff; 
+    color: black; 
+}
+.nav-sidebar .sidebar-blue a:hover {
+    background-color: #0080c0;
+    color: white;   
+}
+
+.nav-sidebar .sidebar-blue a:ACTIVE {
+    background-color: #0080c0;
+    color: white;   
+}
+
+.nav-sidebar .sidebar-red a { 
+    cursor: default;
+    background-color: #fff; 
+    color: black; 
+}
+.nav-sidebar .sidebar-red a:hover {
+    background-color: #E64A19;  
+    color: white; 
+}
+
+.nav-sidebar .sidebar-green a { 
+    cursor: default;
+    background-color: #fff; 
+    color: black; 
+}
+.nav-sidebar .sidebar-green a:hover {
+    background-color: #43A047; 
+    color: white;  
+}
+
+.nav-sidebar .sidebar-orange a { 
+    cursor: default;
+    background-color: #fff; 
+    color: black; 
+}
+.nav-sidebar .sidebar-orange a:hover {
+    background-color: #F9A825; 
+    color: white;  
+}
+
+.tabs li{
+  box-shadow: 1px 1px 0.5px 0.5px lightgray; 
+  margin-bottom: 2px;
+}
+
+.tabs li:hover{
+  box-shadow: 2px 2px 2px 2px lightgray; 
+  margin-bottom: 7px;
+}
+
+.tabs li a{
+	font-family: 'Noto Sans KR', sans-serif; 
+	font-size: 15px;
+}
+.nav-sidebar{ 
+	margin-top: 30px;
+}
+
+.sidebar-center-void{
+	margin-top: 30px;
+	margin-bottom: 30px
+}
+
+.header-search-span{
+	font-weight: bold;
+	font-family: 'Product Sans', Arial, sans-serif;
+}

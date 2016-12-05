@@ -17,6 +17,19 @@ $(function(){
 	var context = canvas.getContext('2d');
 	var $captureList = $('#caputreList');
 	var $hiddenDiv = $('#hiddenDiv');
+	var emp;
+	
+	//emp 정보 셋팅
+	$.ajax({
+		type: 'get',
+		url: 'http://localhost:8081/imageRoom/getEmp',
+		data: {
+			emp_no: $hiddenDiv.find('#emp_no').text()
+		},
+		success: function(data){
+			emp = data;
+		}
+	});
 
 	//화면 크기
 	pageDefaultLeft = parseInt($(container).css('margin-left')) 
@@ -173,8 +186,8 @@ $(function(){
 		var date = new Date(argDate);
 		
 		return date.getFullYear() + '년 ' + (date.getMonth() + 1) + '월 ' 
-				+ date.getDate() + '일 ' + date.getHours() + '시 ' + date.getMinutes() + '분 ' 
-				+ date.getSeconds() + '초';
+				+ date.getDate() + '일 ' + date.getHours() + ':' + date.getMinutes() + ':' 
+				+ date.getSeconds();
 	}
 	
 	//채팅 내용 추가
@@ -185,6 +198,12 @@ $(function(){
 		
 		if(isMyEmpNo(data.emp_no)){
 			divTag.addClass('myChat');
+		}else{
+			$('<span></span>')
+			.text(data.dept_name + ' ' + data.emp_name + data.office_name)
+			.addClass('chatEmp')
+			.appendTo(divTag)
+			.after('<br/>');
 		}
 
 		$('<span></span>')
@@ -192,16 +211,10 @@ $(function(){
 		.addClass('chatContents')
 		.appendTo(divTag)
 		.after('<br/>');
-
+		
 		$('<span></span>')
 		.html(toDateFormat(data.image_room_his_regdate))
 		.addClass('chatRegdate')
-		.appendTo(divTag)
-		.after('<br/>');
-		
-		$('<span></span>')
-		.text(data.dept_name + ' ' + data.emp_name + data.office_name)
-		.addClass('chatEmp')
 		.appendTo(divTag);
 	}
 	
@@ -372,7 +385,12 @@ $(function(){
 					image_room_no: $hiddenDiv.find('#image_room_no').text(),
 					emp_no: $hiddenDiv.find('#emp_no').text(),
 					image_room_his_no: imageRoomHisNo,
-					image_room_his_regdate: new Date()
+					image_room_his_regdate: new Date(),
+					emp_no: emp.emp_no,
+					emp_name: emp.emp_name,
+					dept_name: emp.dept_name,
+					position_name: emp.position_name,
+					office_name: emp.office_name
 				};
 				
 				$.ajax({
