@@ -90,33 +90,42 @@ io.sockets.on('connection', function(socket) {
 	socket.on('create_room', function(data) {
 		io.sockets.emit('create_room', data);
 	});
-
 	// 그림 그리기
 	socket.on('draw', function(data) {
 		io.sockets.to(image_room_no).emit('line', data);
 	});
-
 	// 그림판 지우기
 	socket.on('clean', function() {
 		io.sockets.to(image_room_no).emit('clean');
 	});
-
 	// 캡쳐 이미지 추가
 	socket.on('drawImage', function(data) {
 		io.sockets.to(image_room_no).emit('drawImage', data.toString());
 	});
-
 	// 이미지 캡쳐
 	socket.on('saveImage', function(data) {
 		imgList[image_room_no] = data.toString();
 	});
-
+	// 이미지 불러오기
 	socket.on('loadImage', function() {
 		io.sockets.emit('drawImage', imgList[image_room_no]);
 
 		console.log(empList[image_room_no]);
 	});
+	//권한 제거
+	socket.on('addDrawDisable', function(data) {
+		io.sockets.to(image_room_no).emit('addDrawDisable', data);
+	});
+	//권한 추가
+	socket.on('removeDrawDisable', function(data) {
+		io.sockets.to(image_room_no).emit('removeDrawDisable', data);
+	});
+	// 채팅 발송
+	socket.on('chat', function(data) {
+		io.sockets.to(image_room_no).emit('chat', data);
+	});
 
+	//방 퇴장
 	socket.on('disconnect', function() {
 		if (isInRoom) {
 			var index = empList[image_room_no].indexOf(emp_no);
@@ -127,19 +136,8 @@ io.sockets.on('connection', function(socket) {
 					empList[image_room_no]);
 		}
 	});
-
-	socket.on('addDrawDisable', function(data) {
-		io.sockets.to(image_room_no).emit('addDrawDisable', data);
-	});
-
-	socket.on('removeDrawDisable', function(data) {
-		io.sockets.to(image_room_no).emit('removeDrawDisable', data);
-	});
-
-	// 채팅
-	socket.on('chat', function(data) {
-		io.sockets.to(image_room_no).emit('chat', data);
-	});
+	
+	
 });
 
 /* 규호꺼 */

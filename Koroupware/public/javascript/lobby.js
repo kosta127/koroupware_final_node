@@ -5,7 +5,7 @@ $(document).ready(function(){
 	//emp 정보 셋팅
 	$.ajax({
 		type: 'get',
-		url: 'http://localhost:8081/imageRoom/getEmp',
+		url: 'http://192.168.0.13:8081/imageRoom/getEmp',
 		data: {
 			emp_no: $hiddenDiv.find('#emp_no').text()
 		},
@@ -17,7 +17,7 @@ $(document).ready(function(){
 	//맨 처음 페이지 접속시 db에 있는 방에 대한 정보 ajax 처리
 	$.ajax({
 		type: 'get',
-		url: 'http://localhost:8081/imageRoom/imageRoomLobby',
+		url: 'http://192.168.0.13:8081/imageRoom/imageRoomLobby',
 		success: function(data){
 			$.each(data, function(index, item){
 				createRoom(item);
@@ -57,7 +57,7 @@ $(document).ready(function(){
 		
 		divTag
 		.append(aTag)
-		.appendTo('#container');
+		.appendTo('#roomDiv');
 	}
 	
 	socket.on('create_room', function(data){
@@ -66,7 +66,7 @@ $(document).ready(function(){
 	});
 	
 	//이벤트 연결
-	$('#container').on('click', 'button', function(){
+	$('#roomDiv').on('click', 'button', function(){
 		//방의 pk 변수 선언
 		var room = $(this).attr('data-room');
 		
@@ -74,13 +74,13 @@ $(document).ready(function(){
 		location = 'canvas?image_room_no=' + room;
 	});
 	
-	$('#container').on('click', 'a', function(event){
+	$('#roomDiv').on('click', 'a', function(event){
 		event.stopPropagation();
 		var that = $(this);
 		
 		$.ajax({
 			type : 'post',
-			url : 'http://localhost:8081/imageRoom/imageRoomDelete',
+			url : 'http://192.168.0.13:8081/imageRoom/imageRoomDelete',
 			data: {
 				image_room_no : that.parent().attr('data-index')
 			},
@@ -97,7 +97,7 @@ $(document).ready(function(){
 	$('#createButton').click(function(){
 		$.ajax({
 			type: 'get',
-			url: 'http://localhost:8081/imageRoom/getRoomNo',
+			url: 'http://192.168.0.13:8081/imageRoom/getRoomNo',
 			success: function(image_room_no){
 				//방 이름에 대한 변수 선언
 				var image_room_name = $('#room').val();
@@ -105,7 +105,7 @@ $(document).ready(function(){
 				//ajax로 spring에 정보 보내기
 				$.ajax({
 					type: 'post',
-					url: 'http://localhost:8081/imageRoom/imageRoomLobby',
+					url: 'http://192.168.0.13:8081/imageRoom/imageRoomLobby',
 					data: {
 						image_room_name: image_room_name,
 						emp_no: emp.emp_no,
@@ -121,6 +121,8 @@ $(document).ready(function(){
 							position_name: emp.position_name,
 							office_name: emp.office_name
 						});
+						
+						alert('방이 생성되었습니다.');
 					}
 				});
 			}
